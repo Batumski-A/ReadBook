@@ -1,0 +1,65 @@
+﻿@model FileClass
+@{
+    Layout = null;
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ReadBook</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/BoostWatch.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ReadBook.styles.css" asp-append-version="true" />
+</head>
+
+<div style="width:600px;height:auto; margin:auto; margin-top:20px;"> 
+    <form asp-controller="Files" asp-action="Index" mehod="post" enctype="multipart/form-data" style="margin:auto;">
+     <div class="input-group mb-3">
+      <input formnovalidate type="file" name="file" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+      <button class="btn btn-primary" type="submit" id="button-addon2">Upload</button>
+      <span>@TempData["msg"]</span>
+    </div>
+    </form>
+</div>
+
+@if (Model != null)
+{
+    <hr />
+    <table class="table table-bordered table-striped" cellpadding="0" cellspacing="0" border="1">
+        <thead>
+            <tr>
+                <th>SL</th>
+                <th style="width:20%;">PDF Name</th>
+                <th style="width:20%;">Functions</th>
+                <th>Show Pdf</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (FileClass file in Model.Files)
+            {
+                <tr scope="row">
+                    <td>@file.FileId</td>
+                    <td>@file.Name</td>
+                    <td>
+                        <a type="button" class="btn btn-outline-secondary" href="../AutoF?fileName=@file.Name" style="margin-right:10px;">AutoConv</a>
+                        <br>
+                        <a type="button" class="btn btn-outline-secondary" href="../Files/Index?fileName=@file.Name" style="margin-right:10px;">Show on Current Page</a>
+                        <br>
+                        <a type="button" class="btn btn-outline-secondary" href="../EditPdf/Index?fileName=@file.Name" style="margin-right:10px;">Edit On New Page</a>
+                    </td>
+                    <td>
+                        @if(@Model.Name != "" && @Model.Name == @file.Name)
+                            {
+                                <embed id="embPDF" src="~/files/Book/@Model.Name" style="width:100%; height:400px;"/>
+                            }
+                    </td>  
+                </tr> 
+            }
+        </tbody>
+    </table>
+}
+<bt /> <bt />
+
+
+

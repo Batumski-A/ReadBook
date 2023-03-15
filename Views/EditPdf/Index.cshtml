@@ -1,0 +1,45 @@
+﻿@using ReadBook.Models.Pdf
+@model AllBook
+
+@{
+    Layout = null;
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ReadBook</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/BoostWatch.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ReadBook.styles.css" asp-append-version="true" />
+</head>
+<div style="width:100%;height:100%;">
+    <div style="width:50%;vertical-align: middle; float:left;">
+        <div class="input-group mb-3">
+            <div style="width:600px;height:auto; margin:auto; margin-top:20px;"> 
+            <form asp-controller="EditPdf" asp-action="Index" mehod="post" enctype="multipart/form-data" style="margin:auto;">
+             <div class="input-group mb-3" style="align-content:center; padding:5%;">
+                <p>With And Height = @Model.WithHeight</p>
+                <p>Coordinates = @Model.Coordinates</p>
+                <input readonly formnovalidate style="width:100%; margin-bottom:5px;" type="text" name="fileName" class="form-control" placeholder="სიტყვა" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <input formnovalidate style="width:100%; margin-bottom:5px;" type="number" name="pageIndex" class="form-control" placeholder="გვერდი" aria-label="Recipient's username" aria-describedby="button-addon2">
+                  <select formnovalidate name="type" id="cars" class="form-control" aria-describedby="button-addon2">
+                      <option value="volvo">Volvo</option>
+                      <option value="saab">Saab</option>
+                      <option value="mercedes">Mercedes</option>
+                      <option value="audi">Audi</option>
+                  </select>
+              <button style="width:100%" class="btn btn-primary" type="submit" id="button-addon2">Upload</button>
+              <span>@TempData["msg"]</span>
+            </div>
+            </form>
+        </div>
+        </div>
+    </div>
+
+    <div style="width:50%;height:100%; float:right;">
+        <p>@Model.BookName</p>
+        <embed id="embPDF" src="~/files/Book/@Model.BookName" style="width:100%; height:100%;"/>
+    </div>
+</div>
